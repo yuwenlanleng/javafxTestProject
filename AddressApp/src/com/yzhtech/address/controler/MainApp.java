@@ -35,15 +35,14 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // Add some sample data
-        personData.add(new Person("Hans", "Muster"));
-        personData.add(new Person("Ruth", "Mueller"));
-        personData.add(new Person("Heinz", "Kurz"));
-        personData.add(new Person("Cornelia", "Meier"));
-        personData.add(new Person("Werner", "Meyer"));
-        personData.add(new Person("Lydia", "Kunz"));
-        personData.add(new Person("Anna", "Best"));
-        personData.add(new Person("Stefan", "Meier"));
-        personData.add(new Person("Martin", "Mueller"));
+        personData.add(new Person("张", "张三","1",2,"3"));
+        personData.add(new Person("李", "李四","4",5,"6"));
+        personData.add(new Person("王", "王五","7",8,"9"));
+        personData.add(new Person("赵", "赵六","10",11,"12"));
+        personData.add(new Person("孙", "孙七","13",14,"15"));
+        personData.add(new Person("周", "周八","16",17,"18"));
+        personData.add(new Person("吴", "吴九","19",20,"21"));
+        personData.add(new Person("郑", "郑十","22",23,"24"));
     }
 
     /**

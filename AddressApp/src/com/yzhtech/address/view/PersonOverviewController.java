@@ -10,6 +10,7 @@ package com.yzhtech.address.view;
 
 import com.yzhtech.address.controler.MainApp;
 import com.yzhtech.address.model.Person;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -56,10 +57,45 @@ public class PersonOverviewController {
         firstNameColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Person, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Person, String> cellData) {
+                firstNameLabel.setText(cellData.getValue().getFirstName());
                 return cellData.getValue().firstNameProperty();
             }
         });
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        lastNameColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Person, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Person, String> cellData) {
+                return cellData.getValue().lastNameProperty();
+            }
+        });
+        // Listen for selection changes and show the person details when changed.
+        personTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Person>() {
+            @Override
+            public void changed(ObservableValue<? extends Person> observable, Person oldValue, Person newValue) {
+                showPersonDetails(newValue);
+            }
+        });
+    }
+
+    private void showPersonDetails(Person person) {
+        if (person != null) {
+            // Fill the labels with info from the person object.
+            firstNameLabel.setText(person.getFirstName());
+            lastNameLabel.setText(person.getLastName());
+            streetLabel.setText(person.getStreet());
+            postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
+            cityLabel.setText(person.getCity());
+
+            // TODO: We need a way to convert the birthday into a String! 
+            // birthdayLabel.setText(...);
+        } else {
+            // Person is null, remove all the text.
+            firstNameLabel.setText("");
+            lastNameLabel.setText("");
+            streetLabel.setText("");
+            postalCodeLabel.setText("");
+            cityLabel.setText("");
+            birthdayLabel.setText("");
+        }
     }
 
     /**
