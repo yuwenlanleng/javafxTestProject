@@ -14,8 +14,9 @@ import java.time.format.DateTimeParseException;
  * @author lenovo
  */
 public class DateUtil {
-  /** The date pattern that is used for conversion. Change as you wish. */
-	private static final String DATE_PATTERN = "dd.MM.yyyy";
+	
+	/** The date pattern that is used for conversion. Change as you wish. */
+	private static final String DATE_PATTERN = "yyyyMMdd";
 	
 	/** The date formatter. */
 	private static final DateTimeFormatter DATE_FORMATTER = 
@@ -61,5 +62,5 @@ public class DateUtil {
     public static boolean validDate(String dateString) {
     	// Try to parse the String.
     	return DateUtil.parse(dateString) != null;
-    }  
+    }
 }

@@ -22,7 +22,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Person {
 
-    private final StringProperty firstName;
+    private final StringProperty firstName;//必须是final 的类型，要不在新添加的时候回报空指针错误
     private final StringProperty lastName;
     private final StringProperty street;
     private final IntegerProperty postalCode;
@@ -30,20 +30,27 @@ public class Person {
     private final ObjectProperty<LocalDate> birthday;
 
     /**
+     * Default constructor.
+     */
+    /**
      * Constructor with some initial data.
      *
      * @param firstName
      * @param lastName
+     * @param street
+     * @param post
+     * @param city
+     * @param birthday
      */
-    public Person(String firstName, String lastName,String street,Integer postal,String city) {
+    public Person(String firstName, String lastName, String street, Integer post, String city,LocalDate birthday) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
 
         // Some initial dummy data, just for convenient testing.
         this.street = new SimpleStringProperty(street);
-        this.postalCode = new SimpleIntegerProperty(postal);
+        this.postalCode = new SimpleIntegerProperty(post);
         this.city = new SimpleStringProperty(city);
-        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
     }
 
     public String getFirstName() {
@@ -117,5 +124,5 @@ public class Person {
     public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
     }
-
 }
+

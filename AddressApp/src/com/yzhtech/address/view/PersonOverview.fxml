@@ -44,7 +44,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                        <Label text="姓" GridPane.rowIndex="1" />
+                        <Label text="名" GridPane.rowIndex="1" />
                         <Label text="街道" GridPane.rowIndex="2" />
                         <Label text="邮编" GridPane.rowIndex="3" />
                         <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -60,17 +60,17 @@
                         </GridPane>
                         <HBox layoutX="225.0" layoutY="372.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="32.0">
                             <children>
-                                <Button mnemonicParsing="false" text="添加">
+                                <Button mnemonicParsing="false" onAction="#handleNewPerson" text="添加">
                                     <HBox.margin>
                                         <Insets right="10.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" text="编辑">
+                                <Button mnemonicParsing="false" onAction="#handleEditPerson" text="编辑">
                                     <HBox.margin>
                                         <Insets right="10.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button mnemonicParsing="false" text="删除" />
+                                <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="删除" />
                             </children>
                         </HBox>
                     </children>
