@@ -36,7 +36,7 @@ public class PersonEditDialogController {
     private Stage dialogStage;
     private Person person;
     private boolean okClicked = false;
-
+    //测试头像
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
