@@ -1,0 +1,42 @@
+<persons>
+    <person>
+        <birthday>2006-02-21</birthday>
+        <city>1</city>
+        <firstName>2</firstName>
+        <lastName>3</lastName>
+        <postalCode>4</postalCode>
+        <street>some street</street>
+    </person>
+    <person>
+        <birthday>2006-03-21</birthday>
+        <city>5</city>
+        <firstName>6</firstName>
+        <lastName>7</lastName>
+        <postalCode>8</postalCode>
+        <street>some street</street>
+    </person>
+	 <person>
+        <birthday>2006-04-21</birthday>
+        <city>9</city>
+        <firstName>10</firstName>
+        <lastName>11</lastName>
+        <postalCode>12</postalCode>
+        <street>13</street>
+    </person>
+	 <person>
+        <birthday>2006-06-21</birthday>
+        <city>14</city>
+        <firstName>15</firstName>
+        <lastName>16</lastName>
+        <postalCode>17</postalCode>
+        <street>18</street>
+    </person>
+	 <person>
+        <birthday>2006-07-21</birthday>
+        <city>19</city>
+        <firstName>20</firstName>
+        <lastName>21</lastName>
+        <postalCode>22</postalCode>
+        <street>23</street>
+    </person>
+</persons>

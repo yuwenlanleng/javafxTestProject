@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="com.yzhtech.address.view.PersonEditDialogController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.yzhtech.address.view.PersonEditDialogController">
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" prefHeight="319.0" prefWidth="361.0">
         <columnConstraints>
@@ -43,7 +42,7 @@
       </GridPane>
       <HBox layoutX="386.0" layoutY="363.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="44.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleOk" text="确定">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOk" text="确定">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

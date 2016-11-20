@@ -9,10 +9,15 @@
 package com.yzhtech.address.controler;
 
 import com.yzhtech.address.model.Person;
+import com.yzhtech.address.model.PersonListWrapper;
+import com.yzhtech.address.view.BirthdayStatisticsController;
 import com.yzhtech.address.view.PersonEditDialogController;
 import com.yzhtech.address.view.PersonOverviewController;
+import com.yzhtech.address.view.RootLayoutController;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.prefs.Preferences;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +27,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -38,15 +47,15 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // Add some sample data
-        
-        personData.add(new Person("张", "张三", "1", 2, "3",LocalDate.of(2016, 01, 25)));
-        personData.add(new Person("李", "李四", "4", 5, "6",LocalDate.of(2016, 02, 25)));
-        personData.add(new Person("王", "王五", "7", 8, "9",LocalDate.of(2016, 03, 25)));
-        personData.add(new Person("赵", "赵六", "10", 11, "12",LocalDate.of(2016, 04, 25)));
-        personData.add(new Person("孙", "孙七", "13", 14, "15",LocalDate.of(2016, 05, 25)));
-        personData.add(new Person("周", "周八", "16", 17, "18",LocalDate.of(2016, 06, 25)));
-        personData.add(new Person("吴", "吴九", "19", 20, "21",LocalDate.of(2016, 07, 25)));
-        personData.add(new Person("郑", "郑十", "22", 23, "24",LocalDate.of(2016, 03, 25)));
+
+        personData.add(new Person("张", "张三", "1", 2, "3", LocalDate.of(2016, 01, 25)));
+        personData.add(new Person("李", "李四", "4", 5, "6", LocalDate.of(2016, 02, 25)));
+        personData.add(new Person("王", "王五", "7", 8, "9", LocalDate.of(2016, 03, 25)));
+        personData.add(new Person("赵", "赵六", "10", 11, "12", LocalDate.of(2016, 04, 25)));
+        personData.add(new Person("孙", "孙七", "13", 14, "15", LocalDate.of(2016, 05, 25)));
+        personData.add(new Person("周", "周八", "16", 17, "18", LocalDate.of(2016, 06, 25)));
+        personData.add(new Person("吴", "吴九", "19", 20, "21", LocalDate.of(2016, 07, 25)));
+        personData.add(new Person("郑", "郑十", "22", 23, "24", LocalDate.of(2016, 03, 25)));
     }
 
     /**
@@ -62,11 +71,11 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;//
         this.primaryStage.setTitle("这是主要窗口");
-
+//        this.primaryStage.getIcons().add(new Image(new InputStream(MainApp.class.getResource("/com/yzhtech/address/resources/images/address_book_32.png"))));
         initRootLayout();
 
         showPersonOverview();
-        //加载border布局
+
     }
 
     /**
@@ -83,8 +92,16 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);//相当于panel
             primaryStage.setScene(scene);
             primaryStage.show();
+            // Give the controller access to the main app.
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        // Try to load last opened person file.
+        File file = getPersonFilePath();
+        if (file != null) {
+            loadPersonDataFromFile(file);
         }
     }
 
@@ -118,7 +135,7 @@ public class MainApp extends Application {
      * @param person the person object to be edited
      * @return true if the user clicked OK, false otherwise.
      */
-    public boolean showPersonEditDialog(Person person,Boolean editDialog) {
+    public boolean showPersonEditDialog(Person person, Boolean editDialog) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -136,7 +153,7 @@ public class MainApp extends Application {
             // Set the person into the controller.
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setPerson(person,editDialog);
+            controller.setPerson(person, editDialog);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -155,6 +172,129 @@ public class MainApp extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Returns the person file preference, i.e. the file that was last opened.
+     * The preference is read from the OS specific registry. If no such
+     * preference can be found, null is returned.
+     *
+     * @return
+     */
+    public File getPersonFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        String filePath = prefs.get("filePath", null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Sets the file path of the currently loaded file. The path is persisted in
+     * the OS specific registry.
+     *
+     * @param file the file or null to remove the path
+     */
+    public void setPersonFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+
+            // Update the stage title.
+            primaryStage.setTitle("AddressApp - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+
+            // Update the stage title.
+            primaryStage.setTitle("AddressApp");
+        }
+    }
+
+    /**
+     * Loads person data from the specified file. The current person data will
+     * be replaced.
+     *
+     * @param file
+     */
+    public void loadPersonDataFromFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(PersonListWrapper.class);
+            Unmarshaller um = context.createUnmarshaller();
+
+            // Reading XML from the file and unmarshalling.
+            PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
+
+            personData.clear();
+            personData.addAll(wrapper.getPersons());
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+
+        } catch (Exception e) { // catches ANY exception
+            Dialogs.create()
+                    .title("Error")
+                    .masthead("Could not load data from file:\n" + file.getPath())
+                    .showException(e);
+        }
+    }
+
+    /**
+     * Saves the current person data to the specified file.
+     *
+     * @param file
+     */
+    public void savePersonDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(PersonListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            // Wrapping our person data.
+            PersonListWrapper wrapper = new PersonListWrapper();
+            wrapper.setPersons(personData);
+
+            // Marshalling and saving XML to the file.
+            m.marshal(wrapper, file);
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+        } catch (Exception e) { // catches ANY exception
+            Dialogs.create().title("Error")
+                    .masthead("Could not save data to file:\n" + file.getPath())
+                    .showException(e);
+        }
+    }
+
+    /**
+     * Opens a dialog to show birthday statistics.
+     */
+    public void showBirthdayStatistics() {
+        try {
+            // Load the fxml file and create a new stage for the popup.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/yzhtech/address/view/BirthdayStatistics.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Birthday Statistics");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the persons into the controller.
+            BirthdayStatisticsController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setPersonData(personData);
+            
+            dialogStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

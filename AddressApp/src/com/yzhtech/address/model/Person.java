@@ -8,13 +8,16 @@
  */
 package com.yzhtech.address.model;
 
+import com.yzhtech.address.util.LocalDateAdapter;
 import java.time.LocalDate;
+import java.time.Month;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
@@ -42,7 +45,7 @@ public class Person {
      * @param city
      * @param birthday
      */
-    public Person(String firstName, String lastName, String street, Integer post, String city,LocalDate birthday) {
+    public Person(String firstName, String lastName, String street, Integer post, String city, LocalDate birthday) {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
 
@@ -51,6 +54,17 @@ public class Person {
         this.postalCode = new SimpleIntegerProperty(post);
         this.city = new SimpleStringProperty(city);
         this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
+    }
+
+    public Person() {
+        this.firstName = new SimpleStringProperty("1");
+        this.lastName = new SimpleStringProperty("1");
+
+        // Some initial dummy data, just for convenient testing.
+        this.street = new SimpleStringProperty("1");
+        this.postalCode = new SimpleIntegerProperty(0);
+        this.city = new SimpleStringProperty("1");
+        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(2016, 10, 10));
     }
 
     public String getFirstName() {
@@ -113,6 +127,7 @@ public class Person {
         return city;
     }
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getBirthday() {
         return birthday.get();
     }
@@ -125,4 +140,3 @@ public class Person {
         return birthday;
     }
 }
-

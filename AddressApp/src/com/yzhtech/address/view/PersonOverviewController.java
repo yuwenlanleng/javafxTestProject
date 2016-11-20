@@ -11,7 +11,6 @@ package com.yzhtech.address.view;
 import com.yzhtech.address.controler.MainApp;
 import com.yzhtech.address.model.Person;
 import java.time.LocalDate;
-import java.time.Month;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -89,7 +88,7 @@ public class PersonOverviewController {
             cityLabel.setText(person.getCity());
 
             // TODO: We need a way to convert the birthday into a String! 
-            // birthdayLabel.setText(...);
+             birthdayLabel.setText(person.getBirthday().toString());
         } else {
             // Person is null, remove all the text.
             firstNameLabel.setText("");
