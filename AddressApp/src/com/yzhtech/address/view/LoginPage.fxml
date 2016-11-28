@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="215.0" prefWidth="399.0" styleClass="backImage" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="com.yzhtech.address.view.LoginPageController">
+    <stylesheets>
+        <URL value="@loginpage.css" />
+    </stylesheets>
+   <children>
+      <Label id="welComeTitle" layoutX="14.0" layoutY="14.0" text="Welcome" />
+      <Label layoutX="41.0" layoutY="61.0" text="User Name:" />
+      <Label layoutX="47.0" layoutY="91.0" text="PassWord:" />
+      <TextField fx:id="userNameTexField" layoutX="116.0" layoutY="57.0" />
+      <TextField fx:id="passWordTexField" layoutX="116.0" layoutY="87.0" />
+      <Button fx:id="loginInButton" layoutX="222.0" layoutY="130.0" mnemonicParsing="false" onAction="#loginInBtn" text="Sign in" />
+      <Label id="hintLabel" fx:id="hintLabel" layoutX="164.0" layoutY="169.0" prefHeight="25.0" prefWidth="237.0" />
+   </children>
+</AnchorPane>

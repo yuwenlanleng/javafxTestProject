@@ -86,7 +86,7 @@ public class MainApp extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/yzhtech/address/view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = (BorderPane) loader.load();//加载布局
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);//相当于panel
