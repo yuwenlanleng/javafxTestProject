@@ -76,7 +76,7 @@ public class ButtonSample extends Application {
         button3.setOnAction((ActionEvent e) -> {
             label.setText("Declined");
         });
-
+        //设置按钮停留在上面时的样式
         button3.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
             button3.setEffect(shadow);
         });
