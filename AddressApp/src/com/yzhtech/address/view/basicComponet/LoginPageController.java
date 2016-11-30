@@ -6,7 +6,7 @@
  * 
  * Created at 2016-11-28 11:43:57
  */
-package com.yzhtech.address.view;
+package com.yzhtech.address.view.basicComponet;
 
 import com.yzhtech.address.controler.MainApp;
 import java.io.IOException;

@@ -6,7 +6,7 @@
  * 
  * Created at 2016-11-29 18:11:57
  */
-package com.yzhtech.address.view;
+package com.yzhtech.address.view.basicComponet;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -47,7 +47,7 @@ public class ButtonSample extends Application {
         stage.setTitle("Button Sample");
         stage.setWidth(300);
         stage.setHeight(190);
-        scene.getStylesheets().add("/com/yzhtech/address/view/globalStyle.css");
+        scene.getStylesheets().add("/com/yzhtech/address/view/basicComponet/globalStyle.css");
 
         label.setFont(Font.font("Times New Roman", 22));
         label.setTextFill(color);

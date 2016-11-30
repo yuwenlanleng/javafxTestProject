@@ -6,7 +6,7 @@
  * 
  * Created at 2016-11-29 13:50:45
  */
-package com.yzhtech.address.view;
+package com.yzhtech.address.view.basicComponet;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -49,7 +49,7 @@ public class LabelSample extends Application  {
 
 
         HBox hbox = new HBox();
-        Image image = new Image(getClass().getResourceAsStream("/com/yzhtech/address/resources/images/search-24.png"));
+        Image image = new Image(getClass().getResourceAsStream("                    search-24.png"));
 
         Label label1 = new Label("Search");
         label1.setGraphic(new ImageView(image));//设置图片

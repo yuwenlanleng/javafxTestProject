@@ -1,0 +1,19 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.button1 {
+    -fx-font: 22 arial;
+    -fx-base: #b6e7c9;   
+}
+.toggle-button1{
+    -fx-base: lightgreen;   
+}
+
+.toggle-button2{
+    -fx-base: lightblue;  
+}
+
+.toggle-button3{
+    -fx-base: salmon;   
+}
