@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="com.yzhtech.address.view.basicComponet.ListViewController">
+   <children>
+      <ListView fx:id="listView" layoutX="14.0" layoutY="14.0" prefHeight="378.0" prefWidth="200.0" />
+      <Label fx:id="label" layoutX="269.0" layoutY="157.0" prefHeight="17.0" prefWidth="89.0" text="Label" />
+   </children>
+</AnchorPane>
